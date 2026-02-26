@@ -74,12 +74,37 @@ jobs:
       matrix:
         config:
           # *-* Munch *-*
-          - name: "No KSU (munch)"
+          - name: "KernelSU-Next with SuSFS (munch)"
             KERNEL_DEVICE_CONFIG: "munch"
-            KERNEL_TREE_BRANCH: "base"
-            KERNELSU_NAME: ""
-            KERNELSU_SETUP_URL: ""
-            KERNELSU_SETUP_BRANCH: ""
+            KERNEL_TREE_BRANCH: "susfs-v2.0.0-test"
+            KERNELSU_NAME: "KSUN"
+            KERNELSU_SETUP_URL: "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/refs/heads/stable/kernel/setup.sh"
+            KERNELSU_SETUP_BRANCH: "stable"
+            KERNELSU_PATCHES: ""
+
+          - name: "Rissu's KernelSU with SuSFS (munch)"
+            KERNEL_DEVICE_CONFIG: "munch"
+            KERNEL_TREE_BRANCH: "susfs-v2.0.0-test"
+            KERNELSU_SETUP_URL: "https://raw.githubusercontent.com/rsuntk/KernelSU/refs/heads/main/kernel/setup.sh"
+            KERNELSU_NAME: "RKSU"
+            KERNELSU_SETUP_BRANCH: "susfs-rksu-master"
+            KERNELSU_PATCHES: ""
+
+          # *-* UV (Undervolt) *-*
+          - name: "KernelSU-Next with SuSFS (munch) + UV"
+            KERNEL_DEVICE_CONFIG: "munch"
+            KERNEL_TREE_BRANCH: "susfs-v2.0.0-test-uv"
+            KERNELSU_NAME: "KSUN"
+            KERNELSU_SETUP_URL: "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/refs/heads/stable/kernel/setup.sh"
+            KERNELSU_SETUP_BRANCH: "stable"
+            KERNELSU_PATCHES: ""
+
+          - name: "Rissu's KernelSU with SuSFS (munch) + UV"
+            KERNEL_DEVICE_CONFIG: "munch"
+            KERNEL_TREE_BRANCH: "susfs-v2.0.0-test-uv"
+            KERNELSU_SETUP_URL: "https://raw.githubusercontent.com/rsuntk/KernelSU/refs/heads/main/kernel/setup.sh"
+            KERNELSU_NAME: "RKSU"
+            KERNELSU_SETUP_BRANCH: "susfs-rksu-master"
             KERNELSU_PATCHES: ""
 
     steps:
@@ -175,11 +200,6 @@ jobs:
           set -e
           FINAL_ZIP_NAME="Morphite-${{ matrix.config.KERNEL_DEVICE_CONFIG }}-${{ inputs.release_tag }}"
           FINAL_DISPLAY_NAME="Morphite ${{ matrix.config.KERNEL_DEVICE_CONFIG }}"
-
-          if [[ "${{ matrix.config.KERNEL_TREE_BRANCH }}" == *bpf* ]]; then
-            FINAL_ZIP_NAME="${FINAL_ZIP_NAME}-BPF"
-            FINAL_DISPLAY_NAME="${FINAL_DISPLAY_NAME} (BPF)"
-          fi
 
           if [[ "${{ matrix.config.KERNEL_TREE_BRANCH }}" == *uv* ]]; then
             FINAL_ZIP_NAME="${FINAL_ZIP_NAME}-UV"
