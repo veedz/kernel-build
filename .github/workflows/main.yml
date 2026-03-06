@@ -78,7 +78,7 @@ jobs:
             KERNEL_DEVICE_CONFIG: "munch"
             KERNEL_TREE_BRANCH: "tes"
             KERNELSU_NAME: "KSUN"
-            KERNELSU_SETUP_URL: "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/legacy_susfs/kernel/setup.sh"
+            KERNELSU_SETUP_URL: "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/refs/heads/dev/kernel/setup.sh"
             KERNELSU_SETUP_BRANCH: "legacy_susfs"
             KERNELSU_PATCHES: ""
 
